@@ -64,16 +64,25 @@ export default function TriagePage() {
     setTahap("proses");
     setError(null);
     try {
-      const res = await fetch("/api/triage", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          answers: jawaban,
-          catatan: sertakanCatatan ? catatan : "",
-          nama,
-        }),
-      });
-      if (!res.ok) throw new Error();
+      const { data: sesi } = await supabase.auth.getSession();
+        const res = await fetch("/api/triage", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sesi.session?.access_token ?? ""}`,
+          },
+          body: JSON.stringify({
+            answers: jawaban,
+            catatan: sertakanCatatan ? catatan : "",
+            nama,
+          }),
+        });
+        if (res.status === 401) {
+          setError("Sesimu berakhir. Masuk ulang lalu coba lagi.");
+          setTahap("catatan");
+          return;
+        }
+        if (!res.ok) throw new Error();
       const h: Hasil = await res.json();
       setHasil(h);
       setTahap("hasil");

@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
-import { tanggalLokal } from "../lib/insight";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
+import { tanggalLokal } from "@/lib/insight";
 import { useAuthGate } from "../lib/use-auth-gate";
 import { BottomNav } from "../components/bottomnav";
 
@@ -23,6 +24,7 @@ const ENERGI = [
 type Status = "diam" | "menyimpan" | "tersimpan" | "gagal";
 
 export default function Home() {
+  const router = useRouter();
   const { profile, loading } = useAuthGate();
   const [mood, setMood] = useState(3);
   const [tidur, setTidur] = useState(7);
@@ -30,25 +32,21 @@ export default function Home() {
   const [jurnal, setJurnal] = useState("");
   const [status, setStatus] = useState<Status>("diam");
   const [sudahAda, setSudahAda] = useState(false);
-  
-  // State untuk tanggal agar dirender hanya di client
-  const [hariIni, setHariIni] = useState("");
-  const [tanggalUI, setTanggalUI] = useState("");
+
+  const [hariIni, setHariIni] = useState<string>("");
 
   useEffect(() => {
     setHariIni(tanggalLokal(new Date()));
-    setTanggalUI(
-      new Date().toLocaleDateString("id-ID", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-      })
-    );
   }, []);
+
+  // Akun konselor langsung diarahkan ke dashboard.
+  useEffect(() => {
+    if (profile?.role === "counselor") router.replace("/dashboard-konselor");
+  }, [profile, router]);
 
   // Muat check-in hari ini kalau sudah pernah diisi.
   useEffect(() => {
-    if (loading || !hariIni) return;
+    if (loading) return;
     (async () => {
       const { data } = await supabase
         .from("checkins")
@@ -77,7 +75,6 @@ export default function Home() {
       { onConflict: "user_id,tanggal" }
     );
     if (error) {
-      console.error("Error dari Supabase:", error.message, error.details);
       setStatus("gagal");
     } else {
       setStatus("tersimpan");
@@ -106,7 +103,7 @@ export default function Home() {
       <div className="px-6 pt-14">
         <header className="mb-4 space-y-1.5">
           <p className="text-sm text-[#5b6b66]">
-            {tanggalUI || "Memuat tanggal..."}
+            {new Date().toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long" })}
           </p>
           <h1 className="text-[26px] font-bold leading-tight text-[#1f2d2a]">
             Halo, {profile?.display_name || "Teman"}. Apa kabar hari ini?

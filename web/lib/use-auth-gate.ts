@@ -49,7 +49,16 @@ export function useAuthGate() {
         return;
       }
 
-      setState({ loading: false, user: session.user, profile });
+      const nama =
+        profile.display_name ??
+        (session.user.user_metadata?.display_name as string | undefined) ??
+        null;
+          
+      setState({
+        loading: false,
+        user: session.user,
+        profile: { ...profile, display_name: nama },
+      });
     })();
 
     return () => {

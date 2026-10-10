@@ -72,29 +72,58 @@ export default function ConsentPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSetuju() {
+  // Batasi waktu tunggu supaya tombol tidak macet selamanya.
+  function batasi<T>(p: PromiseLike<T>, ms = 10000): Promise<T> {
+    return Promise.race([
+      Promise.resolve(p),
+      new Promise<never>((_, tolak) =>
+        setTimeout(() => tolak(new Error("Permintaan terlalu lama (timeout)")), ms)
+      ),
+    ]);
+  }
+
+  async function simpan(pilihan: typeof nilai) {
     setLoading(true);
     setError(null);
+    try {
+      // getSession membaca sesi lokal (sama seperti useAuthGate), tidak memanggil jaringan.
+      const { data } = await batasi(supabase.auth.getSession());
+      if (!data.session) {
+        router.replace("/login");
+        return;
+      }
+      const uid = data.session.user.id;
 
-    const { data } = await supabase.auth.getUser();
-    if (!data.user) {
-      router.replace("/login");
-      return;
-    }
+      const { error: e1 } = await batasi(
+        supabase.from("consents").upsert({
+          user_id: uid,
+          ...pilihan,
+          updated_at: new Date().toISOString(),
+        })
+      );
+      if (e1) throw e1;
 
-    const { error } = await supabase.from("consents").upsert({
-      user_id: data.user.id,
-      ...nilai,
-      updated_at: new Date().toISOString(),
-    });
+      // useAuthGate membaca profiles.consent_at; tanpa ini user dikembalikan ke /consent.
+      const { error: e2 } = await batasi(
+        supabase
+          .from("profiles")
+          .upsert({ id: uid, consent_at: new Date().toISOString() })
+      );
+      if (e2) throw e2;
 
-    if (error) {
-      setError("Persetujuan belum tersimpan. Coba lagi.");
+      router.replace("/");
+    } catch (e) {
+      console.error("Simpan consent gagal:", e);
+      const pesan = (e as { message?: string })?.message ?? "";
+      setError(`Persetujuan belum tersimpan. ${pesan}`.trim());
+    } finally {
       setLoading(false);
-    } else {
-      router.replace("/"); // ganti ke halaman Beranda Check-in
     }
   }
+
+  const handleSetuju = () => simpan(nilai);
+  const hanyaWajib = () =>
+    simpan({ checkin: true, ai_triage: false, share_anon: false });
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#f6f8f7] px-6 py-10 font-sans">
@@ -161,10 +190,10 @@ export default function ConsentPage() {
           type="button"
           variant="outline"
           disabled={loading}
-          onClick={() => router.replace("/")}
+          onClick={hanyaWajib}
           className="h-12 w-full rounded-2xl border-[#2f7f73] bg-white text-[15px] font-semibold text-[#2f7f73] hover:bg-[#d8eeea] hover:text-[#2f7f73]"
         >
-          Atur nanti
+          Hanya yang wajib
         </Button>
 
         <p className="text-center text-xs text-[#8a9893]">

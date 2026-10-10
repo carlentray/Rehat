@@ -1,5 +1,21 @@
 import { NextResponse } from "next/server";
 import { analisis, type Checkin } from "../../../lib/insight";
+import { createClient } from "@supabase/supabase-js";
+
+async function cekAkses(req: Request) {
+  const token = req.headers.get("authorization")?.replace("Bearer ", "");
+  if (!token) return { ok: false as const };
+  const sb = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    { global: { headers: { Authorization: `Bearer ${token}` } } }
+  );
+  const { data: { user } } = await sb.auth.getUser(token);
+  if (!user) return { ok: false as const };
+  const { data: c } = await sb
+    .from("consents").select("ai_triage").eq("user_id", user.id).maybeSingle();
+  return { ok: true as const, aiBoleh: c?.ai_triage === true };
+}
 
 const SYSTEM_PROMPT = `Kamu adalah Rehat, pendamping kesehatan mental untuk mahasiswa Indonesia.
 Tugasmu menjelaskan pola dari data check-in harian seseorang selama maksimal 7 hari.
@@ -24,6 +40,9 @@ function valid(d: unknown): d is Checkin {
 }
 
 export async function POST(req: Request) {
+  const akses = await cekAkses(req);
+  if (!akses.ok) return NextResponse.json({ error: "Perlu login" }, { status: 401 });
+  
   let body: { data?: unknown };
   try {
     body = await req.json();
