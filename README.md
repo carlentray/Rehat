@@ -31,20 +31,29 @@ Check-in harian → insight pola stres → AI triage (PHQ-9 dalam bentuk chat) �
 
 | Login / Daftar | Persetujuan Data |
 |:--:|:--:|:--:|
-<img width="691" height="714" alt="image" src="https://github.com/user-attachments/assets/9aa73804-1a0d-4271-8554-46ca04a28b9e" />
-
+| <img width="329" height="693" alt="image" src="https://github.com/user-attachments/assets/970c67a0-6e1b-4e21-a5a7-d7c2728fbeff" />
+ | <img width="323" height="689" alt="image" src="https://github.com/user-attachments/assets/b2849dde-0e42-4997-a504-db39811d8a81" />
+ |
 
 | Beranda Check-in | Insight Mingguan | AI Triage Chat |
 |:--:|:--:|:--:|
-| ![Beranda Check-in]() | ![Insight Mingguan]() | ![AI Triage Chat]() |
+| <img width="322" height="692" alt="image" src="https://github.com/user-attachments/assets/e56ba311-eac9-4e8e-8fdf-c787510ba5c6" />
+ | <img width="323" height="687" alt="image" src="https://github.com/user-attachments/assets/da57b42d-fbde-428d-8314-4a10e30f2021" />
+ | <img width="325" height="690" alt="image" src="https://github.com/user-attachments/assets/0af0f853-9d54-4e52-ab30-ad54a57fe449" />
+ |
 
 | Hasil Skrining | Rujukan Konselor | Komunitas Anonim |
 |:--:|:--:|:--:|
-| ![Hasil Skrining]() | ![Rujukan Konselor]() | ![Komunitas Anonim]() |
+| <img width="319" height="686" alt="image" src="https://github.com/user-attachments/assets/1623e351-d867-4443-a220-f09ca5617043" />
+ | <img width="331" height="696" alt="image" src="https://github.com/user-attachments/assets/2f76639e-8540-43a7-9ba4-bdf1fae26fae" />
+ | <img width="332" height="694" alt="image" src="https://github.com/user-attachments/assets/a5e0823f-ee92-4f38-8951-64ec2590c2ac" />
+ |
 
 | Bantuan Darurat | Dashboard Konselor |
 |:--:|:--:|
-| ![Bantuan Darurat]() | ![Dashboard Konselor]() |
+| <img width="327" height="688" alt="image" src="https://github.com/user-attachments/assets/04b03d42-bebd-4cb8-9e3c-a73fa2594bbf" />
+ | <img width="333" height="693" alt="image" src="https://github.com/user-attachments/assets/773a74fd-e639-4bf4-984a-196a1d79410e" />
+ |
 
 ## Fitur
 
