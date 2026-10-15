@@ -62,7 +62,22 @@ const POLA_KRISIS = [
   /(tidak|nggak|gak|ga)\s*(ingin|mau|pengen)\s*hidup/,
   /(menyakiti|melukai|nyakitin)\s*diri/,
   /self[\s-]?harm/,
+  /(capek|cape|lelah|muak|bosan|males)\s*(banget\s*)?(hidup|idup)/,
+  /(hidup|idup)\s*(ini\s*)?(nggak|gak|ga|tidak)\s*(ada\s*)?(arti|guna|berguna|berharga)/,
 ];
+
+// Frasa ambigu: bisa lelah biasa, bisa tanda putus asa. Tidak langsung kartu krisis.
+const POLA_AMBIGU = [
+  /(pengen|pingin|ingin|mau)\s*(hilang|lenyap|menghilang|kabur)/,
+  /(ga|gak|nggak|tidak)\s*(kuat|sanggup)\s*(lagi)/,
+  /(beban|merepotkan)\s*(buat|bagi|untuk)\s*(semua|orang)/,
+  /(pengen|pingin|ingin|mau)\s*(tidur|istirahat)\s*(selamanya|terus)/,
+];
+
+export function cekAmbigu(teks: string): boolean {
+  const t = teks.toLowerCase();
+  return POLA_AMBIGU.some((p) => p.test(t));
+}
 
 export function cekKataKrisis(teks: string): boolean {
   const t = teks.toLowerCase();

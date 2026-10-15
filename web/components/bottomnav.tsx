@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { Home, BarChart3, MessageCircleHeart, Users, LifeBuoy } from "lucide-react";
 
 const TABS = [
-  { href: "/", label: "Beranda", Icon: Home },
-  { href: "/insight", label: "Insight", Icon: BarChart3 },
-  { href: "/triage", label: "Rehat AI", Icon: MessageCircleHeart },
-  { href: "/komunitas", label: "Komunitas", Icon: Users },
-  { href: "/bantuan", label: "Bantuan", Icon: LifeBuoy },
+  { href: "/", label: "Beranda", Icon: Home, match: ["/"] },
+  { href: "/insight", label: "Insight", Icon: BarChart3, match: ["/insight"] },
+  { href: "/chat", label: "Rehat AI", Icon: MessageCircleHeart, match: ["/chat", "/triage"] },
+  { href: "/komunitas", label: "Komunitas", Icon: Users, match: ["/komunitas"] },
+  { href: "/bantuan", label: "Bantuan", Icon: LifeBuoy, match: ["/bantuan"] },
 ];
 
 export function BottomNav() {
@@ -21,8 +21,10 @@ export function BottomNav() {
       className="fixed bottom-0 left-1/2 z-50 w-full max-w-md -translate-x-1/2 border-t border-[#e1e8e5] bg-white pb-[env(safe-area-inset-bottom)]"
     >
       <ul className="flex items-start justify-between px-6 pb-3 pt-3">
-        {TABS.map(({ href, label, Icon }) => {
-          const aktif = href === "/" ? pathname === "/" : pathname.startsWith(href);
+        {TABS.map(({ href, label, Icon, match }) => {
+          const aktif = match.some((m) =>
+            m === "/" ? pathname === "/" : pathname.startsWith(m)
+          );
           return (
             <li key={href}>
               <Link
