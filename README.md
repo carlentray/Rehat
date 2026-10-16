@@ -151,8 +151,6 @@ where id = (select id from auth.users where email = 'email-konselor@contoh.com')
 
 ## Tim
 
-## Tim
-
 - Raynard Carlent
 - Adiwidya Budi P. 
 - I Gede Bagus Saka S. 
