@@ -31,7 +31,7 @@ Check-in harian → insight pola stres → AI triage (PHQ-9 dalam bentuk chat) �
 
 | Login / Daftar | Persetujuan Data |
 |:---:|:---:|
-| <img width="329" height="693" alt="image" src="https://github.com/user-attachments/assets/970c67a0-6e1b-4e21-a5a7-d7c2728fbeff" /> | <img width="323" height="689" alt="image" src="https://github.com/user-attachments/assets/b2849dde-0e42-4997-a504-db39811d8a81" /> |
+| <img width="359" height="777" alt="image" src="https://github.com/user-attachments/assets/0a687395-f991-4f17-9ef3-ac0d2c332af2" /> | <img width="323" height="689" alt="image" src="https://github.com/user-attachments/assets/b2849dde-0e42-4997-a504-db39811d8a81" /> |
 
 | Beranda Check-in | Insight Mingguan | AI Triage Chat |
 |:---:|:---:|:---:|
