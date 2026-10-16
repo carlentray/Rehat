@@ -1,6 +1,6 @@
 # Rehat
 
-**Teman harian untuk mengenali stres lebih awal, sebelum jadi burnout.**
+**Berhenti Sejenak, lalu tumbuh lagi.**
 
 Rehat adalah aplikasi web pendamping kesehatan mental untuk mahasiswa. Rehat membantu memantau kondisi harian, mengenali pola stres, melakukan skrining awal lewat chat, dan terhubung ke konselor bila perlu.
 
