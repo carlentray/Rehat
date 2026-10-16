@@ -151,7 +151,9 @@ where id = (select id from auth.users where email = 'email-konselor@contoh.com')
 
 ## Tim
 
-- (nama) - UI/UX dan pitch
-- (nama) - Frontend
-- (nama) - Backend dan database
-- (nama) - AI dan safety logic
+## Tim
+
+- Raynard Carlent
+- Adiwidya Budi P. 
+- I Gede Bagus Saka S. 
+- Muhammad Huda R.
