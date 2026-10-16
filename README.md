@@ -72,7 +72,7 @@ Prinsip desain: **keputusan risiko tidak diserahkan ke AI.**
 
 ### Transparansi penggunaan AI dalam pengembangan
 
-Tim memakai asisten AI (**Claude** dari Anthropic dan **Gemini** dari Google) selama pengembangan untuk brainstorming konsep, penyusunan desain, dan bantuan penulisan kode. _TODO: pastikan kalimat ini akurat untuk seluruh tim dan sesuai aturan lomba._
+Tim memakai asisten AI (**Claude** dari Anthropic dan **Gemini** dari Google) selama pengembangan untuk brainstorming konsep, penyusunan desain, dan bantuan penulisan kode.
 
 ## Keamanan dan Etika
 
