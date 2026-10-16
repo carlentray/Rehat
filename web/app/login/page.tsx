@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 
@@ -90,11 +91,8 @@ export default function LoginPage() {
       <div className="w-full max-w-sm space-y-6">
         {/* Brand */}
         <div className="space-y-3">
-          <div
-            aria-hidden
-            className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#2f7f73] text-2xl font-bold text-white"
-          >
-            R
+          <div className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl">
+            <Image src="/logo-rehat.png" alt="Logo Rehat" width={56} height={56} priority />
           </div>
           <div className="space-y-1">
             <h1 className="text-[28px] font-bold leading-tight text-[#1f2d2a]">
